@@ -1,16 +1,18 @@
 from selenium import webdriver
 import random
-import time
+import ProxyChange
+
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import WebDriverWait
 
-file2 = open("prx.txt", "r")
-Numbers = file2.read().splitlines()
+#file2 = open("prx.txt", "r")
+#Numbers = file2.read().splitlines()
 capa = DesiredCapabilities.CHROME
 capa["pageLoadStrategy"] = "none"
 path = "C:\chromedriver.exe"
 
-proxy = random.choice(Numbers)
+
+proxy = random.choice(list(ProxyChange.get_proxies()))
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--proxy-server=%s' % proxy)
 browser = webdriver.Chrome(path, chrome_options=chrome_options, desired_capabilities=capa)
